@@ -7,12 +7,138 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  passwordHash String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  savedColleges SavedCollege[]
+  questions    Question[]
+  answers      Answer[]
+
+  @@index([email])
+}
+
+model SavedCollege {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  collegeId Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  college   College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, collegeId])
+  @@index([userId])
+  @@index([collegeId])
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text
+  userId    Int
+  collegeId Int?
+  viewCount Int      @default(0)
+  isClosed  Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  college   College? @relation(fields: [collegeId], references: [id], onDelete: SetNull)
+  answers   Answer[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([collegeId])
+  @@index([createdAt])
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  content    String   @db.Text
+  userId     Int
+  questionId Int
+  isAccepted Boolean  @default(false)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+  @@index([questionId])
+  @@index([createdAt])
+}
+
 model College {
-  id       Int    @id @default(autoincrement())
-  name     String
-  slug     String @unique
-  city     String
-  state    String
-  fees     Int
-  rating   Float
+  id         Int         @id @default(autoincrement())
+  name       String
+  slug       String      @unique
+  city       String
+  state      String
+  fees       Int
+  rating     Float
+  courses    Course[]
+  placements Placement[]
+  reviews    Review[]
+  cutoffs    Cutoff[]
+  savedBy    SavedCollege[]
+  questions  Question[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([city])
+  @@index([state])
+  @@index([rating])
+}
+
+model Course {
+  id        Int      @id @default(autoincrement())
+  name      String
+  duration  String
+  fees      Int
+  collegeId Int
+  college   College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([collegeId])
+}
+
+model Placement {
+  id              Int      @id @default(autoincrement())
+  year            Int
+  averagePackage  Int
+  highestPackage  Int
+  placementRate   Float
+  collegeId       Int
+  college         College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+
+  @@index([collegeId])
+  @@index([year])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Float
+  comment   String   @db.Text
+  collegeId Int
+  college   College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([collegeId])
+}
+
+model Cutoff {
+  id          Int      @id @default(autoincrement())
+  collegeId   Int
+  exam        String
+  course      String
+  category    String
+  year        Int
+  cutoffRank  Int
+  college     College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@index([collegeId])
+  @@index([exam, course, category, year])
 }
