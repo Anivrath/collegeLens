@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model College {
+  id       Int    @id @default(autoincrement())
+  name     String
+  slug     String @unique
+  city     String
+  state    String
+  fees     Int
+  rating   Float
+}
