@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import CollegeCard from "@/components/CollegeCard";
 import Pagination from "@/components/Pagination";
@@ -19,6 +21,9 @@ type College = {
 };
 
 export default function CollegesPage() {
+  const { status } = useSession();
+  const router = useRouter();
+  
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,6 +42,12 @@ export default function CollegesPage() {
   const [total, setTotal] = useState(0);
 
   const limit = 10;
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
 
   const fetchColleges = async () => {
     try {
@@ -71,8 +82,10 @@ export default function CollegesPage() {
   };
 
   useEffect(() => {
-    fetchColleges();
-  }, [search, city, minFees, maxFees, minRating, sort, currentPage]);
+    if (status === "authenticated") {
+      fetchColleges();
+    }
+  }, [search, city, minFees, maxFees, minRating, sort, currentPage, status]);
 
   const handleReset = () => {
     setSearch("");
@@ -83,6 +96,19 @@ export default function CollegesPage() {
     setSort("rating_desc");
     setCurrentPage(1);
   };
+
+  if (status === "loading") {
+    return (
+      <main className="min-h-screen bg-gray-50">
+        <Navbar />
+        <LoadingState message="Loading..." />
+      </main>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return null;
+  }
 
   return (
     <main className="min-h-screen bg-gray-50">

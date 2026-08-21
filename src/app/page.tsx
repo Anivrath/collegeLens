@@ -1,7 +1,35 @@
+"use client";
+
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import CollegeList from "@/components/CollegeList";
+import LoadingState from "@/components/LoadingState";
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return (
+      <main className="min-h-screen bg-gray-50">
+        <Navbar />
+        <LoadingState message="Loading..." />
+      </main>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return null;
+  }
+
   return (
     <main className="min-h-screen bg-gray-50">
       <Navbar />
@@ -29,6 +57,12 @@ export default function Home() {
             >
               Predict My Colleges
             </a>
+            <a
+              href="/qa"
+              className="rounded-lg border border-black px-8 py-3 text-black hover:bg-gray-50"
+            >
+              Community Q&A
+            </a>
           </div>
         </div>
       </section>
@@ -39,34 +73,44 @@ export default function Home() {
           Why Choose CollegeLens?
         </h2>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-4">
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <div className="mb-4 text-4xl">🔍</div>
             <h3 className="mb-2 text-xl font-bold text-black">
-              Smart Search & Filters
+              Smart Search
             </h3>
             <p className="text-gray-600">
-              Search colleges by name, city, fees range, and rating. Sort results to find exactly what you need.
+              Search colleges by name, city, fees range, and rating with advanced filters.
             </p>
           </div>
 
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <div className="mb-4 text-4xl">⚖️</div>
             <h3 className="mb-2 text-xl font-bold text-black">
-              Compare Colleges
+              Compare
             </h3>
             <p className="text-gray-600">
-              Compare up to 3 colleges side-by-side with detailed metrics on fees, placements, and ratings.
+              Compare up to 3 colleges side-by-side with detailed metrics on fees and placements.
             </p>
           </div>
 
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <div className="mb-4 text-4xl">🎯</div>
             <h3 className="mb-2 text-xl font-bold text-black">
-              Rank Predictor
+              Predictor
             </h3>
             <p className="text-gray-600">
-              Enter your exam rank and get personalized college recommendations based on historical cutoffs.
+              Get personalized college recommendations based on your exam rank and historical data.
+            </p>
+          </div>
+
+          <div className="rounded-xl border bg-white p-6 shadow-sm">
+            <div className="mb-4 text-4xl">💬</div>
+            <h3 className="mb-2 text-xl font-bold text-black">
+              Q&A Community
+            </h3>
+            <p className="text-gray-600">
+              Ask questions, share knowledge, and connect with students and alumni.
             </p>
           </div>
         </div>

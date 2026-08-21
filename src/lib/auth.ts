@@ -56,6 +56,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  trustHost: true, // Fix UntrustedHost error
   pages: {
     signIn: "/login",
   },
