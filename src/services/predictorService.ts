@@ -13,7 +13,10 @@ export async function predictColleges(input: PredictorRequest) {
   const predictions = cutoffs
     .filter((c) => rank <= c.cutoffRank * 1.1)
     .map((c) => ({
-      college: c.college,
+      college: {
+        ...c.college,
+        fees: Number(c.college.fees),
+      },
       cutoffRank: c.cutoffRank,
       year: c.year,
       probability: rank <= c.cutoffRank ? "High" : "Moderate",

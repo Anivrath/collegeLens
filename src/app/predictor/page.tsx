@@ -69,7 +69,33 @@ export default function PredictorPage() {
       }
 
       const result = await response.json();
-      setPredictions(result.data);
+      
+      // Transform API response to match expected format
+      const data = result.data || [];
+      const transformedPredictions: PredictionResponse = {
+        safe: [],
+        match: [],
+        reach: [],
+        message: data.length === 0 ? "No colleges found matching your criteria" : null,
+      };
+
+      // Categorize predictions based on probability
+      data.forEach((pred: any) => {
+        const transformed = {
+          college: pred.college,
+          cutoffRank: pred.cutoffRank,
+          category: pred.probability === "High" ? "Safe" as const : "Match" as const,
+          difference: pred.cutoffRank - Number(rank),
+        };
+
+        if (pred.probability === "High") {
+          transformedPredictions.safe.push(transformed);
+        } else {
+          transformedPredictions.match.push(transformed);
+        }
+      });
+
+      setPredictions(transformedPredictions);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to predict colleges");
     } finally {

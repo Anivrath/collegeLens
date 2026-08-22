@@ -23,11 +23,20 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
+    // Convert BigInt to Number for JSON serialization
     return NextResponse.json({
       data: savedColleges.map((sc) => ({
         id: sc.id,
         savedAt: sc.createdAt,
-        college: sc.college,
+        college: {
+          ...sc.college,
+          fees: Number(sc.college.fees),
+          placements: sc.college.placements.map((p) => ({
+            ...p,
+            averagePackage: Number(p.averagePackage),
+            highestPackage: Number(p.highestPackage),
+          })),
+        },
       })),
     });
   } catch (error) {
@@ -108,10 +117,17 @@ export async function POST(request: Request) {
       },
     });
 
+    // Convert BigInt to Number for JSON serialization
     return NextResponse.json(
       {
         message: "College saved successfully",
-        data: savedCollege,
+        data: {
+          ...savedCollege,
+          college: {
+            ...savedCollege.college,
+            fees: Number(savedCollege.college.fees),
+          },
+        },
       },
       { status: 201 }
     );
