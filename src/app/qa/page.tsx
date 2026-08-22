@@ -101,7 +101,7 @@ function QAContent() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search questions..."
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
             />
             <button
               type="submit"
