@@ -124,19 +124,19 @@ async function main() {
           {
             name: "Electronics and Communication Engineering",
             duration: "4 years",
-            fees: college.fees - 20000,
+            fees: college.fees - BigInt(20000),
             collegeId: college.id,
           },
           {
             name: "Mechanical Engineering",
             duration: "4 years",
-            fees: college.fees - 30000,
+            fees: college.fees - BigInt(30000),
             collegeId: college.id,
           },
           {
             name: "Information Science Engineering",
             duration: "4 years",
-            fees: college.fees - 10000,
+            fees: college.fees - BigInt(10000),
             collegeId: college.id,
           },
         ],
@@ -158,15 +158,15 @@ async function main() {
         data: [
           {
             year: 2024,
-            averagePackage: basePkg,
-            highestPackage: basePkg * 3,
+            averagePackage: BigInt(basePkg),
+            highestPackage: BigInt(basePkg * 3),
             placementRate: college.rating * 20,
             collegeId: college.id,
           },
           {
             year: 2023,
-            averagePackage: Math.floor(basePkg * 0.95),
-            highestPackage: Math.floor(basePkg * 2.8),
+            averagePackage: BigInt(Math.floor(basePkg * 0.95)),
+            highestPackage: BigInt(Math.floor(basePkg * 2.8)),
             placementRate: college.rating * 19,
             collegeId: college.id,
           },

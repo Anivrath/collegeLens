@@ -75,7 +75,7 @@ model College {
   slug       String      @unique
   city       String
   state      String
-  fees       Int
+  fees       BigInt      // Changed to BigInt for large values
   rating     Float
   courses    Course[]
   placements Placement[]
@@ -95,7 +95,7 @@ model Course {
   id        Int      @id @default(autoincrement())
   name      String
   duration  String
-  fees      Int
+  fees      BigInt   // Changed to BigInt for large values
   collegeId Int
   college   College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
@@ -106,8 +106,8 @@ model Course {
 model Placement {
   id              Int      @id @default(autoincrement())
   year            Int
-  averagePackage  Int
-  highestPackage  Int
+  averagePackage  BigInt   // Changed to BigInt for large values
+  highestPackage  BigInt   // Changed to BigInt for large values
   placementRate   Float
   collegeId       Int
   college         College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
