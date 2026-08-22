@@ -39,7 +39,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
         )}
       </div>
 
-      <p className="mb-4 line-clamp-2 text-gray-600">
+      <p className="mb-4 line-clamp-2 text-black">
         {question.content}
       </p>
 
@@ -55,7 +55,7 @@ export default function QuestionCard({ question }: QuestionCardProps) {
         </div>
       )}
 
-      <div className="flex items-center justify-between text-sm text-gray-500">
+      <div className="flex items-center justify-between text-sm text-black">
         <div className="flex items-center gap-4">
           <span>👤 {question.user.name}</span>
           <span>💬 {question._count?.answers || 0} answers</span>

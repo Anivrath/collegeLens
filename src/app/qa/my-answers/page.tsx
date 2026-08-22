@@ -135,11 +135,11 @@ export default function MyAnswersPage() {
                   </div>
                 )}
 
-                <div className="mb-4 line-clamp-3 whitespace-pre-wrap text-gray-700">
+                <div className="mb-4 line-clamp-3 whitespace-pre-wrap text-black">
                   {answer.content}
                 </div>
 
-                <div className="flex items-center justify-between text-sm text-gray-500">
+                <div className="flex items-center justify-between text-sm text-black">
                   <span>Asked by {answer.question.user.name}</span>
                   <span>Answered on {new Date(answer.createdAt).toLocaleDateString()}</span>
                 </div>

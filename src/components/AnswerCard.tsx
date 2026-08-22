@@ -36,12 +36,12 @@ export default function AnswerCard({
         </div>
       )}
 
-      <div className="mb-4 whitespace-pre-wrap text-gray-800">
+      <div className="mb-4 whitespace-pre-wrap text-black">
         {answer.content}
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-black">
           <span className="font-medium">{answer.user.name}</span>
           <span className="mx-2">•</span>
           <span>{new Date(answer.createdAt).toLocaleDateString()}</span>

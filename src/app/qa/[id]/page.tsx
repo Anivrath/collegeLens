@@ -203,12 +203,12 @@ export default function QuestionDetailPage() {
             </Link>
           )}
 
-          <div className="mb-6 whitespace-pre-wrap text-gray-800">
+          <div className="mb-6 whitespace-pre-wrap text-black">
             {question.content}
           </div>
 
           <div className="flex items-center justify-between border-t pt-4">
-            <div className="flex items-center gap-6 text-sm text-gray-500">
+            <div className="flex items-center gap-6 text-sm text-black">
               <span>👤 {question.user.name}</span>
               <span>💬 {question._count.answers} answers</span>
               <span>👁️ {question.viewCount} views</span>
@@ -255,7 +255,7 @@ export default function QuestionDetailPage() {
           </div>
 
           {question.answers.length === 0 && (
-            <div className="rounded-lg border bg-white p-8 text-center text-gray-500">
+            <div className="rounded-lg border bg-white p-8 text-center text-black">
               No answers yet. Be the first to answer!
             </div>
           )}
