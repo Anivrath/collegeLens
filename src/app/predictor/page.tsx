@@ -247,16 +247,6 @@ export default function PredictorPage() {
               {loading ? "Predicting..." : "Predict My Colleges"}
             </button>
           </form>
-
-          {/* Disclaimer */}
-          <div className="mt-6 rounded-lg bg-blue-50 p-4">
-            <p className="text-sm text-blue-900">
-              <strong>Note:</strong> This predictor uses a rule-based algorithm based on
-              historical cutoff data. Results are indicative only and actual admissions
-              may vary. This is NOT a machine learning model - it's a transparent,
-              deterministic system for educational purposes.
-            </p>
-          </div>
         </div>
 
         {/* Results */}
