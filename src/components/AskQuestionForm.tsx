@@ -88,6 +88,7 @@ export default function AskQuestionForm() {
           required
           minLength={10}
           maxLength={200}
+          style={{ color: '#000000' }}
           className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
         />
         <p className="mt-1 text-xs text-gray-500">
@@ -108,6 +109,7 @@ export default function AskQuestionForm() {
           minLength={20}
           maxLength={5000}
           rows={8}
+          style={{ color: '#000000' }}
           className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
         />
         <p className="mt-1 text-xs text-gray-500">
@@ -123,6 +125,7 @@ export default function AskQuestionForm() {
           id="college"
           value={collegeId || ""}
           onChange={(e) => setCollegeId(e.target.value ? parseInt(e.target.value) : null)}
+          style={{ color: '#000000' }}
           className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
         >
           <option value="">General Question</option>
