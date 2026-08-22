@@ -88,7 +88,7 @@ export default function AskQuestionForm() {
           required
           minLength={10}
           maxLength={200}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
         />
         <p className="mt-1 text-xs text-gray-500">
           {title.length}/200 characters (minimum 10)
@@ -108,7 +108,7 @@ export default function AskQuestionForm() {
           minLength={20}
           maxLength={5000}
           rows={8}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
         />
         <p className="mt-1 text-xs text-gray-500">
           {content.length}/5000 characters (minimum 20)
@@ -123,7 +123,7 @@ export default function AskQuestionForm() {
           id="college"
           value={collegeId || ""}
           onChange={(e) => setCollegeId(e.target.value ? parseInt(e.target.value) : null)}
-          className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+          className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
         >
           <option value="">General Question</option>
           {colleges.map((college) => (
